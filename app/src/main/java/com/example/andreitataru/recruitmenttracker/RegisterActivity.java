@@ -19,18 +19,20 @@ public class RegisterActivity extends AppCompatActivity {
     Button Register;
     String NameHolder, EmailHolder, PasswordHolder;
     Boolean EditTextEmptyHolder;
-    DatabaseHelper databaseHelper = new DatabaseHelper(this);
+
     String SQLiteDataBaseQueryHolder;
     Cursor cursor;
-    String F_Result = "Not_Found";
+    String F_Result = String.valueOf(R.string.not_found);
 
-    SQLiteDatabase mDb = databaseHelper.getWritableDatabase();
+    SQLiteDatabase mDb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
+        DatabaseHelper databaseHelper = new DatabaseHelper(this);
+        this.mDb = databaseHelper.getWritableDatabase();
 
         Register = (Button)findViewById(R.id.buttonRegister);
 

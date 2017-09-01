@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
     Boolean EditTextEmptyHolder;
 
     Cursor cursor;
-    String TempPassword = "NOT_FOUND" ;
+    String TempPassword = String.valueOf(R.string.not_found);
     public static final String UserEmail = "";
 
     DatabaseHelper databaseHelper = new DatabaseHelper(this);
@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 // Opening new user registration activity using intent on button click.
-                Intent intent = new Intent(MainActivity.this, ProjectsActivity.class); //register activity
+                Intent intent = new Intent(MainActivity.this, RegisterActivity.class); //register activity
                 startActivity(intent);
 
             }
@@ -157,7 +157,7 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(MainActivity.this,"UserName or Password is Wrong, Please Try Again.",Toast.LENGTH_LONG).show();
 
         }
-        TempPassword = "NOT_FOUND" ;
+        TempPassword = String.valueOf(R.string.not_found);
 
 
     }
