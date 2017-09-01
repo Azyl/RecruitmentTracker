@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.andreitataru.recruitmenttracker.database.DatabaseContracts;
 import com.andreitataru.recruitmenttracker.database.DatabaseHelper;
 
 public class RegisterActivity extends AppCompatActivity {
@@ -23,6 +24,8 @@ public class RegisterActivity extends AppCompatActivity {
     Cursor cursor;
     String F_Result = "Not_Found";
 
+    SQLiteDatabase mDb = databaseHelper.getWritableDatabase();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,18 +38,12 @@ public class RegisterActivity extends AppCompatActivity {
         Password = (EditText)findViewById(R.id.editPassword);
         Name = (EditText)findViewById(R.id.editName);
 
-        SQLiteDatabase mDb = databaseHelper.getWritableDatabase();
+
 
         // Adding click listener to register button.
         Register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                // Creating SQLite database if dose n't exists
-                SQLiteDataBaseBuild();
-
-                // Creating SQLite table if dose n't exists.
-                SQLiteTableBuild();
 
                 // Checking EditText is empty or Not.
                 CheckEditTextStatus();
@@ -63,19 +60,6 @@ public class RegisterActivity extends AppCompatActivity {
 
     }
 
-    // SQLite database build method.
-    public void SQLiteDataBaseBuild(){
-
-        sqLiteDatabaseObj = openOrCreateDatabase(SQLiteHelper.DATABASE_NAME, Context.MODE_PRIVATE, null);
-
-    }
-
-    // SQLite table build method.
-    public void SQLiteTableBuild() {
-
-        sqLiteDatabaseObj.execSQL("CREATE TABLE IF NOT EXISTS " + SQLiteHelper.TABLE_NAME + "(" + SQLiteHelper.Table_Column_ID + " PRIMARY KEY AUTOINCREMENT NOT NULL, " + SQLiteHelper.Table_Column_1_Name + " VARCHAR, " + SQLiteHelper.Table_Column_2_Email + " VARCHAR, " + SQLiteHelper.Table_Column_3_Password + " VARCHAR);");
-
-    }
 
     // Insert data into SQLite database method.
     public void InsertDataIntoSQLiteDatabase(){
@@ -85,23 +69,23 @@ public class RegisterActivity extends AppCompatActivity {
         {
 
             // SQLite query to insert data into table.
-            SQLiteDataBaseQueryHolder = "INSERT INTO "+SQLiteHelper.TABLE_NAME+" (name,email,password) VALUES('"+NameHolder+"', '"+EmailHolder+"', '"+PasswordHolder+"');";
+            SQLiteDataBaseQueryHolder = "INSERT INTO "+ DatabaseContracts.User.TABLE_NAME+" (name,email,password) VALUES('"+NameHolder+"', '"+EmailHolder+"', '"+PasswordHolder+"');";
 
             // Executing query.
-            sqLiteDatabaseObj.execSQL(SQLiteDataBaseQueryHolder);
+            mDb.execSQL(SQLiteDataBaseQueryHolder);
 
             // Closing SQLite database object.
-            sqLiteDatabaseObj.close();
+            mDb.close();
 
             // Printing toast message after done inserting.
-            Toast.makeText(RegisterActivity.this,"User Registered Successfully", Toast.LENGTH_LONG).show();
+            Toast.makeText(RegisterActivity.this, R.string.user_registered_ok, Toast.LENGTH_LONG).show();
 
         }
         // This block will execute if any of the registration EditText is empty.
         else {
 
             // Printing toast message if any of EditText is empty.
-            Toast.makeText(RegisterActivity.this,"Please Fill All The Required Fields.", Toast.LENGTH_LONG).show();
+            Toast.makeText(RegisterActivity.this, R.string.please_fill_all_fields, Toast.LENGTH_LONG).show();
 
         }
 
@@ -140,11 +124,9 @@ public class RegisterActivity extends AppCompatActivity {
     // Checking Email is already exists or not.
     public void CheckingEmailAlreadyExistsOrNot(){
 
-        // Opening SQLite database write permission.
-        sqLiteDatabaseObj = sqLiteHelper.getWritableDatabase();
 
         // Adding search email query to cursor.
-        cursor = sqLiteDatabaseObj.query(SQLiteHelper.TABLE_NAME, null, " " + SQLiteHelper.Table_Column_2_Email + "=?", new String[]{EmailHolder}, null, null, null);
+        cursor = mDb.query(DatabaseContracts.User.TABLE_NAME, null, " " + DatabaseContracts.User.Table_Column_2_Email + "=?", new String[]{EmailHolder}, null, null, null);
 
         while (cursor.moveToNext()) {
 
@@ -153,7 +135,7 @@ public class RegisterActivity extends AppCompatActivity {
                 cursor.moveToFirst();
 
                 // If Email is already exists then Result variable value set as Email Found.
-                F_Result = "Email Found";
+                F_Result = getString(R.string.email_found);
 
                 // Closing cursor.
                 cursor.close();
@@ -170,11 +152,11 @@ public class RegisterActivity extends AppCompatActivity {
     public void CheckFinalResult(){
 
         // Checking whether email is already exists or not.
-        if(F_Result.equalsIgnoreCase("Email Found"))
+        if(F_Result.equalsIgnoreCase(String.valueOf(R.string.email_found)))
         {
 
             // If email is exists then toast msg will display.
-            Toast.makeText(RegisterActivity.this,"Email Already Exists",Toast.LENGTH_LONG).show();
+            Toast.makeText(RegisterActivity.this, R.string.email_already_exists,Toast.LENGTH_LONG).show();
 
         }
         else {
@@ -184,7 +166,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         }
 
-        F_Result = "Not_Found" ;
+        F_Result = getString(R.string.not_found) ;
 
     }
 }

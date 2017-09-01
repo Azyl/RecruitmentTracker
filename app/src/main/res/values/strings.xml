@@ -8,4 +8,9 @@
     <string name="register_account">Register Account</string>
     <string name="enter_name">Enter Name</string>
     <string name="user_registration">User Registration</string>
+    <string name="email_found">Email Found</string>
+    <string name="email_already_exists">Email Already Exists</string>
+    <string name="not_found">Not_Found</string>
+    <string name="user_registered_ok">User Registered Successfully</string>
+    <string name="please_fill_all_fields">Please Fill All The Required Fields.</string>
 </resources>
