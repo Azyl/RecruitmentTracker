@@ -25,4 +25,11 @@ public class DatabaseContracts {
         public static final String COLUMN_NAME_AKTIV = "aktiv";
     }
 
+    public static class User {
+        public static final String TABLE_NAME = "User";
+        public static final String Table_Column_ID = "id";
+        public static final String Table_Column_1_Name = "name";
+        public static final String Table_Column_2_Email = "email";
+        public static final String Table_Column_3_Password = "password";
+    }
 }

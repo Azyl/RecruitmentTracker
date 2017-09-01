@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/activity_main"
+    android:id="@+id/activity_register"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingBottom="16dp"
@@ -9,7 +9,7 @@
     android:paddingTop="16dp">
 
     <TextView
-        android:text="@string/user_login_screen"
+        android:text="@string/user_registration"
         android:gravity="center"
         android:textSize="20sp"
         android:textColor="#000"
@@ -23,10 +23,23 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:inputType="textEmailAddress"
-        android:hint="@string/enter_email"
+        android:hint="@string/enter_name"
         android:textColor="#000"
         android:ems="10"
         android:layout_below="@+id/textView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:id="@+id/editName"
+        android:gravity="center"/>
+
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textEmailAddress"
+        android:hint="@string/enter_email"
+        android:textColor="#000"
+        android:ems="10"
+        android:layout_below="@+id/editName"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         android:id="@+id/editEmail"
@@ -48,17 +61,9 @@
     <Button
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/buttonLogin"
+        android:id="@+id/buttonRegister"
         android:layout_below="@+id/editPassword"
         android:layout_marginTop="20dp"
-        android:text="@string/log_in"/>
-
-    <Button
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/buttonRegister"
-        android:layout_below="@+id/buttonLogin"
-        android:layout_marginTop="20dp"
-        android:text="@string/not_log_in_register_from_here"/>
+        android:text="@string/register_account"/>
 
 </RelativeLayout>

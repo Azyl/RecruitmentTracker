@@ -37,11 +37,26 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
                 ;
 
+
+        final String CREATE_USERS_TABLE="CREATE TABLE IF NOT EXISTS "+DatabaseContracts.User.TABLE_NAME
+                + " ("+DatabaseContracts.User.Table_Column_ID
+                + " INTEGER PRIMARY KEY, "+DatabaseContracts.User.Table_Column_1_Name
+                + " VARCHAR, "+DatabaseContracts.User.Table_Column_2_Email
+                + " VARCHAR, "+DatabaseContracts.User.Table_Column_3_Password
+                + " VARCHAR)";
+
+        sqLiteDatabase.execSQL(CREATE_USERS_TABLE);
+
+
+
+
+
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + DatabaseContracts.Project.TABLE_NAME);
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + DatabaseContracts.User.TABLE_NAME);
         onCreate(sqLiteDatabase);
 
     }
